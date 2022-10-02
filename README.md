@@ -1,5 +1,10 @@
 # radio-play-gpt3-bot
-A gpt-3 bot for discord for the Radio Play project.
+A gpt-3 bot for discord for the Radio Play project. To use this, you need to create an application through the [Discord developers panel](https://discord.com/developers/applications![image](https://user-images.githubusercontent.com/1598545/193468048-ad2fbb2d-ad41-4b68-b8d9-b70b71a9a843.png)
+), and then run this nodes.js code locally. 
+
+## Configuration
+
+[TK]
 
 ## Usage
 
@@ -30,9 +35,8 @@ To continue a prompt you started, simply reply to the most recent message. In Di
 
 [TK]
 
-## Setup
+## Installation
 
-### Server and code setup
 At the moment, you need to run the bot locally (using node.js) and have created an app with bot on Discord. 
 
 Assume you have install node.js and npm. 
@@ -62,14 +66,14 @@ BOT_TOKEN=XXXXXXXX
 
    - your openAI token is here: [https://beta.openai.com/account/api-keys](https://beta.openai.com/account/api-keys)
    - your discord bot token is found here: [https://discord.com/developers/applications](https://discord.com/developers/applications)
-5. Run the bot: 
+
+### Run the bot code
+You run the bot locally with node.js. In your terminal, type:
 
 ```
 node index.js
 ```
 
-  - Press **CTRL-C** to quit.
+Press **CTRL-C** to quit.
   
-### Discord Setup
-
-[TK]
+## References
