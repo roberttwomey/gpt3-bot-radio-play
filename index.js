@@ -106,8 +106,6 @@ client.on("messageCreate", function(message) {
 
 });
 
-
-
 // ~~~ todo: what is an interaction? ~~~
 
 // client.on('interactionCreate', async interaction => {
