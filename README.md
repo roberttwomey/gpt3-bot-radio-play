@@ -8,7 +8,8 @@ At the moment, you need to run the bot locally (using node.js) and have created 
 Assume you have install node.js and npm. 
 
 1. Clone the repository: 
-```git clone https://github.com/roberttwomey/radio-play-gpt3-bot
+```
+git clone https://github.com/roberttwomey/radio-play-gpt3-bot
 cd radio-play-gpt3-bot
 ```
 2. Setup your node packages: 
@@ -18,7 +19,9 @@ npm install openai discord.js dotenv
 ```
 
 3. Create the .env file: 
-```touch .env```
+```
+touch .env
+```
 
 4. Edit that .env file to include your OpenAI token and your Discord bot secret: 
 
