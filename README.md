@@ -7,7 +7,7 @@ A gpt-3 bot for discord for the Radio Play project. To use this, you need to cre
 
 ## Usage
 
-In your discord server, you will see **@gpt3-bot**. You interact by messaging it in a text channel.
+If everything is configured properly and your local bot code is running, you should see **@gpt3-bot** in your server. You can interact by messaging it in a text channel as described below. 
 
 ### Starting a prompt
 
