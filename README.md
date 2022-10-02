@@ -1,10 +1,40 @@
 # radio-play-gpt3-bot
 A gpt-3 bot for discord for the Radio Play project.
 
-# Instructions
-At the moment, you need to run the bot locally (using node.js) and have created an app with bot on Discord. 
+## Usage
+
+In your discord server, you will see **@gpt3-bot**. You interact by messaging it in a text channel.
+
+### Starting a prompt
+
+To start a new prompt, @message the bot with the text of your prompt, f.ex.: 
+```
+@gpt3-bot There was a mysterious place that occupied my childhood imagination. My bed transformed into a spaceship at night. This place was
+```
+
+This will prompt gpt-3 for a completion using default parameters and language model. Your results will look contain the prompt and completion. For instance:
+```
+There was a mysterious place that occupied my childhood imagination. My bed transformed into a spaceship at night. This place was the magical land of Mars.
+
+I would wait for my mom to close my bedroom door and then I would say my prayers and whisper the words, "Mars, Mars, Mars" over and over again.
+
+I would try to put myself into a deep sleep and then I would imagine that my bed was slowly ascending into the sky.
+```
+
+### Continuing a prompt
+
+To continue a prompt you started, simply reply to the most recent message. In Discord, click the **Reply** button. <img width="40" alt="image" src="https://user-images.githubusercontent.com/1598545/193463923-9ae63096-3775-4247-8fda-fa5ea8c18ef7.png"> Whatever text you type will be appended and used as the new prompt, and results will be returned. You can continue this as long as you like.
+
+
+### Tuning parameters
+
+[TK]
 
 ## Setup
+
+### Server and code setup
+At the moment, you need to run the bot locally (using node.js) and have created an app with bot on Discord. 
+
 Assume you have install node.js and npm. 
 
 1. Clone the repository: 
@@ -39,3 +69,7 @@ node index.js
 ```
 
   - Press **CTRL-C** to quit.
+  
+### Discord Setup
+
+[TK]
