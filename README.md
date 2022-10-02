@@ -3,7 +3,7 @@ A gpt-3 bot for discord for the Radio Play project.
 
 ## Usage
 
-In your discord server, you will see **@gpt3-bot**. 
+In your discord server, you will see **@gpt3-bot**. You interact by messaging it in a text channel.
 
 ### Starting a prompt
 
