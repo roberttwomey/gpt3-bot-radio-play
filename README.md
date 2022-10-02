@@ -34,6 +34,8 @@ BOT_TOKEN=XXXXXXXX
    - your discord bot token is found here: [https://discord.com/developers/applications](https://discord.com/developers/applications)
 5. Run the bot: 
 
-```node index.js```
+```
+node index.js
+```
 
   - Press **CTRL-C** to quit.
