@@ -8,7 +8,9 @@ In your discord server, you will see **@gpt3-bot**.
 ### Starting a prompt
 
 To start a new prompt, @message the bot with the text of your prompt, f.ex.: 
-```@gpt3-bot There was a mysterious place that occupied my childhood imagination. My bed transformed into a spaceship at night. This place was```
+```
+@gpt3-bot There was a mysterious place that occupied my childhood imagination. My bed transformed into a spaceship at night. This place was
+```
 
 This will prompt gpt-3 for a completion using default parameters and language model. Your results will look contain the prompt and completion. For instance:
 ```
