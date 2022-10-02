@@ -36,9 +36,9 @@ To continue a prompt you started, simply reply to the most recent message. In Di
 
 ## Installation
 
-At the moment, you need to run the bot locally (using node.js) and have created an app with bot on Discord. 
+You need to have an app with bot created on your Discord account, and you need to run the bot code locally (using node.js). The following instructions tell you how to setup and run the local bot code.
 
-Assume you have install node.js and npm. 
+This assumes you have already installed node.js and npm. 
 
 1. Clone the repository: 
 ```
