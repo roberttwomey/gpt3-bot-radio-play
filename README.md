@@ -1,9 +1,13 @@
 # radio-play-gpt3-bot
-A gpt-3 bot for discord for the Radio Play project.
+A gpt-3 bot for discord for the Radio Play project. To use this, you need to create an application through the Discord developers panel ([https://discord.com/developers/applications](https://discord.com/developers/applications)), and then run this nodes.js code locally. See [Installation](#installation) below.
+
+## Configuration
+
+Instructions for creating an app on discord. [TK]
 
 ## Usage
 
-In your discord server, you will see **@gpt3-bot**. You interact by messaging it in a text channel.
+If everything is configured properly and your local bot code is running, you should see **@gpt3-bot** in your server. You can interact by messaging it in a text channel as described below. 
 
 ### Starting a prompt
 
@@ -30,12 +34,11 @@ To continue a prompt you started, simply reply to the most recent message. In Di
 
 [TK]
 
-## Setup
+## Installation
 
-### Server and code setup
-At the moment, you need to run the bot locally (using node.js) and have created an app with bot on Discord. 
+You need to have an app with bot created on your Discord account, and you need to run the bot code locally (using node.js). The following instructions tell you how to setup and run the local bot code.
 
-Assume you have install node.js and npm. 
+This assumes you have already installed node.js and npm. 
 
 1. Clone the repository: 
 ```
@@ -62,14 +65,19 @@ BOT_TOKEN=XXXXXXXX
 
    - your openAI token is here: [https://beta.openai.com/account/api-keys](https://beta.openai.com/account/api-keys)
    - your discord bot token is found here: [https://discord.com/developers/applications](https://discord.com/developers/applications)
-5. Run the bot: 
+
+### Run the bot
+You run the bot locally with node.js. In your terminal, type:
 
 ```
 node index.js
 ```
 
-  - Press **CTRL-C** to quit.
-  
-### Discord Setup
+Now you should see @gpt3-bot go live on your server. You can interact with it there. (see [Usage](#usage))
 
-[TK]
+Your local application will post messages to the console to show you what it is doing. 
+
+Press **CTRL-C** to quit.
+  
+## References
+- This was a helpful tutorial: [https://www.twilio.com/blog/build-gpt-3-discord-chatbot-node-js](https://www.twilio.com/blog/build-gpt-3-discord-chatbot-node-js)
