@@ -3,7 +3,7 @@ A gpt-3 bot for discord for the Radio Play project. To use this, you need to cre
 
 ## Configuration
 
-[TK]
+Instructions for creating an app on discord. [TK]
 
 ## Usage
 
