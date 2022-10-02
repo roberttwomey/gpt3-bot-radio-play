@@ -80,3 +80,4 @@ Your local application will post messages to the console to show you what it is 
 Press **CTRL-C** to quit.
   
 ## References
+- This was a helpful tutorial: [https://www.twilio.com/blog/build-gpt-3-discord-chatbot-node-js](https://www.twilio.com/blog/build-gpt-3-discord-chatbot-node-js)
