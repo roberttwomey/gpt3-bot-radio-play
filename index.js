@@ -95,7 +95,7 @@ client.on("messageCreate", function(message) {
         // }
 
         const gpt_args = {
-            model: "davinci-instruct-beta",
+            model: "text-davinci-002",
             prompt: prompt,
             max_tokens: 256,
             temperature: 0.7,
