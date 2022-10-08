@@ -1,7 +1,15 @@
 require('dotenv').config();
 
 const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        // GatewayIntentBits.DirectMessages
+    ]
+});
+
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -15,12 +23,10 @@ let prompt = ``;
 
 let gpt_prefs = {};
 
-client.on("messageCreate", function(message) {
-    // ignore messages from bots
-    if (message.author.bot) return;
+console.log('--- GPT-3 Bot Ready ---');
 
-    // console.log(message.author);
-    // console.log(message.type);
+
+function parseAndReply(message) {
 
     // only reply to messages that directly @mention gpt3-bot
     if (message.mentions.has(client.user.id)) {
@@ -28,18 +34,22 @@ client.on("messageCreate", function(message) {
 
         // reply
         if (message.type == 19) {
-            console.log(`~ this is a continuation (REPLY ${message.type})~`);
 
             // const message1 = await message.fetchReference();
             // message.fetchReference().then(msg => console.log(msg.content))
 
-            message.fetchReference().then(reference => {
+
+            message.fetchReference().then((reference) => {
                 thisprompt = message.content;
                 prompt = reference.content + " " + thisprompt;
-            }, prompt = message.content);
+                console.log(`~ this is a continuation (REPLY ${message.type}) from ${reference.author} ~`);
+            }, (reason) => {
+                console.log(`~ continuation (${message.type}) but couldn't find reference ${reason} ~`);
+            });
+
 
         } else {
-            console.log(`~ this is a new prompt (${message.type})~`);
+            console.log(`~ this is a new prompt (${message.type}) from ${message.author}~`);
             console.log(`contents: ${message.content}`);
 
             prompt = message.content;
@@ -54,24 +64,26 @@ client.on("messageCreate", function(message) {
 
         console.log(`prompt: ${prompt.slice(0, 64)}...`);
 
-        // setting preferences
-        if (prompt.startsWith(`!prefs`)) {
-            id = message.author[id];
-            console.log(id)
+        // STORE INDIVIDUAL PREFERENCES
 
-            prefs[id] = {
-                model: "davinci-instruct-beta",
-                prompt: prompt,
-                max_tokens: 256,
-                temperature: 0.7,
-                top_p: 1.0,
-                presence_penalty: 0,
-                frequency_penalty: 0,
-            };
+        // // setting preferences
+        // if (prompt.startsWith(`!prefs`)) {
+        //     id = message.author[id];
+        //     console.log(id)
 
-            console.log(`preferences for ${id}:\n${prefs[id]}`);
-            return;
-        }
+        //     prefs[id] = {
+        //         model: "davinci-instruct-beta",
+        //         prompt: prompt,
+        //         max_tokens: 256,
+        //         temperature: 0.7,
+        //         top_p: 1.0,
+        //         presence_penalty: 0,
+        //         frequency_penalty: 0,
+        //     };
+
+        //     console.log(`preferences for ${id}:\n${prefs[id]}`);
+        //     return;
+        // }
 
 
         // // check if they are commands
@@ -158,8 +170,27 @@ client.on("messageCreate", function(message) {
 
         console.log("~ no mention in message ~");
     }
+}
+
+client.on("messageCreate", function(message) {
+
+    // ignore messages from bots
+    if (message.author.bot) return;
+
+    // console.log(message.author);
+    // console.log(message.type);
+
+    parseAndReply(message);
+
 
 });
+
+// TODO: Check edited messages
+
+client.on('messageUpdate', (oldMessage, newMessage) => {
+   console.log(`~ saw edited message from ${newMessage.author}~`)
+   parseAndReply(newMessage);
+})
 
 // ~~~ todo: what is an interaction? ~~~
 
