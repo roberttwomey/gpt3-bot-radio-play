@@ -24,28 +24,42 @@ let verbose = false;
 
 console.log('--== GPT-3 Bot Ready ==--');
 
+let prompt = ``;
+
+
 function parseAndReply(message) {
-    let prompt =``;
     if (verbose) console.log(message);
 
     // only reply to messages that directly @mention gpt3-bot
     if (message.mentions.has(client.user.id)) {
         console.log("detected @mention");
 
+
         if (message.type == 19) {
+            console.log("detected reply");
             // reply
 
             // const message1 = await message.fetchReference();
             // message.fetchReference().then(msg => console.log(msg.content))
 
-            message.fetchReference().then((reference) => {
-                thisprompt = message.content;
-                prompt = reference.content + " " + thisprompt;
-                console.log(`~ this is a continuation (REPLY ${message.type}) from ${reference.author} ~`);
-            }, (reason) => {
-                console.log(`~ continuation (${message.type}) but couldn't find reference ${reason} ~`);
-                return;
-            });
+            // const reference = await message.fetchReference();
+            // thisprompt = message.content;
+            // prompt = reference.content + " " + thisprompt;
+            // console.log(`~ this is a continuation (REPLY ${message.type}) from ${reference.author} ~`);
+
+            // message.fetchReference().then((reference) => {
+            //     thisprompt = message.content;
+            //     prompt = reference.content + " " + thisprompt;
+            //     console.log(`~ this is a continuation (REPLY ${message.type}) from ${reference.author} ~`);
+            //     // console.log(`last post: ${reference.content}`)
+            //     // console.log(`this prompt: ${thisprompt}`);
+            //     // console.log(`aggregate prompt: ${prompt}`);
+            //     return prompt;
+
+            // }, (reason) => {
+            //     console.log(`~ continuation (${message.type}) but couldn't find reference ${reason} ~`);
+            //     return;
+            // });
 
 
         } else {
@@ -62,7 +76,7 @@ function parseAndReply(message) {
             thisprompt = prompt;
         }
 
-        console.log(`prompt: ${prompt.slice(0, 64)}...`);
+        // console.log(`prompt: ${prompt.slice(0, 64)}...`);
 
         // STORE INDIVIDUAL PREFERENCES
 
@@ -124,7 +138,23 @@ function parseAndReply(message) {
 
         // ping open for completion
         (async () => {
+
+            if (message.type == 19) {
+                // reply
+
+                // TODO: LEARN MORE ABOUT THIS ASYNC AND PROMISES
+                const reference = await message.fetchReference();
+                thisprompt = message.content;
+                prompt = reference.content + " " + thisprompt;
+                // console.log(`~ this is a continuation (REPLY ${message.type}) from ${reference.author} ~`);
+                gpt_args['prompt']=prompt
+            };
+
             // create completion with given params
+            prompt = gpt_args['prompt']
+
+            console.log(`prompt: ${prompt.slice(0, 64)}...`);
+            // console.log(`prompt: ${gpt_args['prompt']}`);
             const gptResponse = await openai.createCompletion(gpt_args);
 
             completion = gptResponse.data.choices[0].text;
@@ -164,8 +194,8 @@ client.on("messageCreate", function(message) {
 // TODO: Check edited messages
 
 client.on('messageUpdate', (oldMessage, newMessage) => {
-   console.log(`~ saw edited message from ${newMessage.author}~`)
-   parseAndReply(newMessage);
+    console.log(`~ saw edited message from ${newMessage.author}~`)
+    parseAndReply(newMessage);
 })
 
 // ~~~ todo: what is an interaction? ~~~
