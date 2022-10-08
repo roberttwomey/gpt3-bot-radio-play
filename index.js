@@ -1,13 +1,14 @@
 require('dotenv').config();
 
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
-        // GatewayIntentBits.DirectMessages
-    ]
+        GatewayIntentBits.DirectMessages // for DMs
+    ],
+    'partials': [Partials.Channel] // for DMs
 });
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -18,26 +19,24 @@ const configuration = new Configuration({
 const console = require('console')
 
 const openai = new OpenAIApi(configuration);
-
-let prompt = ``;
-
 let gpt_prefs = {};
+let verbose = false;
 
-console.log('--- GPT-3 Bot Ready ---');
-
+console.log('--== GPT-3 Bot Ready ==--');
 
 function parseAndReply(message) {
+    let prompt =``;
+    if (verbose) console.log(message);
 
     // only reply to messages that directly @mention gpt3-bot
     if (message.mentions.has(client.user.id)) {
         console.log("detected @mention");
 
-        // reply
         if (message.type == 19) {
+            // reply
 
             // const message1 = await message.fetchReference();
             // message.fetchReference().then(msg => console.log(msg.content))
-
 
             message.fetchReference().then((reference) => {
                 thisprompt = message.content;
@@ -45,6 +44,7 @@ function parseAndReply(message) {
                 console.log(`~ this is a continuation (REPLY ${message.type}) from ${reference.author} ~`);
             }, (reason) => {
                 console.log(`~ continuation (${message.type}) but couldn't find reference ${reason} ~`);
+                return;
             });
 
 
@@ -85,19 +85,6 @@ function parseAndReply(message) {
         //     return;
         // }
 
-
-        // // check if they are commands
-        // if (prompt.startsWith(`!clear`)) {
-        //     prompt = ``;
-        //     console.log(`\n\n~ cleared prompt ~\n\n`);
-        //     message.reply(`~ cleared prompt ~`);
-        //     return;
-        // } else if (prompt.startsWith(`!print`) || prompt.startsWith(`!prompt`)) {
-        //     message.reply(`**prompt:**${prompt}`); // reply in discord
-        //     return;
-        // } else {
-        // not a command
-
         // prompt += `${message.content}`;
 
         // check if prompt is too long
@@ -116,7 +103,8 @@ function parseAndReply(message) {
             frequency_penalty: 0,
         };
 
-        // // experimental: check for model arguments: 
+        // ARGUMENTS
+        // experimental: check for model arguments: 
         // const args = prompt.split('--');
 
         // if (args.length > 1) {
@@ -136,26 +124,15 @@ function parseAndReply(message) {
 
         // ping open for completion
         (async () => {
-            // const gptResponse = await openai.createCompletion({
-            // model: "davinci-instruct-beta",
-            // prompt: prompt,
-            // max_tokens: 256,
-            // temperature: 0.7,
-            // top_p: 1.0,
-            // presence_penalty: 0,
-            // frequency_penalty: 0,
-            // });
-
+            // create completion with given params
             const gptResponse = await openai.createCompletion(gpt_args);
-
-            // message.reply(`**${prompt}**${gptResponse.data.choices[0].text}`); // with bold markdown
 
             completion = gptResponse.data.choices[0].text;
             console.log(`completion: ${completion.slice(0, 64)}...`);
 
-            response = prompt + completion;
+            let response = prompt + completion;
 
-            // trim if the response is too long (Discord limits 2000 words in posts)
+            // trim if the response is too long (Discord limits posts to 2000 words)
             if (response.length >= 2000) {
                 console.log(`NOTICE: prompt+completion is too long (${response.length}) ,just returning completion (${completion.length})`);
                 response = thisprompt + " " + completion;
@@ -167,7 +144,6 @@ function parseAndReply(message) {
         })();
 
     } else {
-
         console.log("~ no mention in message ~");
     }
 }
